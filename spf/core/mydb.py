@@ -116,9 +116,8 @@ class MyDB():
     def findUser(self, trackid):
         user = ""
         cursor = self.getCursor()
-        cursor.execute('SELECT user FROM users WHERE trackid=?', (trackid,))
-        for row in cursor.fetchall():
-            user = row[0]
+        cursor.execute('SELECT user FROM users WHERE trackid LIKE ?', (trackid,))
+        user = cursor.fetchone()[0];
         return user
 
     def getUserTrackId(self, user):
