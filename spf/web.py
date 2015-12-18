@@ -250,7 +250,7 @@ class PhishingWebServer():
                     site = Site(self.phishingsites[key], logPath=self.logpath + "logs/" + self.websites[key]['logfile']+".access")
 #                    site.logRequest = True
                     reactor.listenTCP(port, site)
-                    print "Started website [%s] on [http://%s:%s]" % (('{:<%i}' % (site_length)).format(key), self.config["ip"], port)
+                    print "Started website [%s] on [http://%s:%s]" % (('{:<%i}' % (site_length)).format(key), Utils.getIP(), port)
                     self.websites[key]['port'] = port
                     break
                 except twisted.internet.error.CannotListenError, ex:
