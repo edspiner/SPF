@@ -106,7 +106,7 @@ class ReportGen():
         # load screenshot
         self.campaigns[campaign]["screenshots"] = []
         self.campaigns[campaign]["screenshots"].append(self.directory + "screenshots/" + campaign + "." + self.config["phishing_domain"] + ".png")
-        files = self.find_files(self.directory + "screenshots/" + Utils.getIP() + ":*_" + campaign + ".png")
+        files = self.find_files(self.directory + "screenshots/" + Utils.getIP() + ":.*_" + campaign + ".png")
         if (files):
             self.campaigns[campaign]["screenshots"].append(files[0])
 
@@ -118,10 +118,12 @@ class ReportGen():
         return
 
     def process_email_template(self, campaign):
-        if (Utils.is_readable(self.directory + "email_template_" + campaign  +".txt")):
+        filepath = self.directory + "logs/email_template_" + campaign  +".txt"
+        if (Utils.is_readable(filepath)):
             data = ""
-            with open (self.directory + "email_template_" + campaign  +".txt" , "r") as myfile:
+            with open (filepath , "r") as myfile:
                 data = myfile.read()
+
             parts = data.split("----------------------------------------------")
             self.campaigns[campaign]["email_template"] = parts[1].strip()
             parts = parts[2].split("--------")
